@@ -7,8 +7,12 @@
 
 import UIKit
 
-class AnimationImageView: UIImageView {
+protocol AnimationImageViewDelegate: class {
+    func animationImageView(didFinishedAnimation animationImageView: AnimationImageView)
+}
 
+class AnimationImageView: UIImageView {
+    
     /// アニメーションフレームリスト
     var animationFrameList = Array<AnimationFrame>()
     
@@ -17,6 +21,8 @@ class AnimationImageView: UIImageView {
     
     /// アニメーション終了後に初期画像に戻すかどうか
     var backToFirstImage = false
+    
+    weak var delegate: AnimationImageViewDelegate?
     
     private var loopFlag = false
     
@@ -38,10 +44,11 @@ class AnimationImageView: UIImageView {
                     }
                     if loopCounter == 1 {
                         self.loopFlag = false
-                        if self.backToFirstImage {
-                            DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            if self.backToFirstImage {
                                 self.image = defaultImage
                             }
+                            self.delegate?.animationImageView(didFinishedAnimation: self)
                         }
                     }
                     loopCounter -= 1

@@ -31,5 +31,10 @@ AnimationImageView.swiftをダウンロードして、任意のswiftプロジェ
             self.time = time
         }
     }
+### デリゲート
+numberOfLoopTimesの値が0でない場合、下記delegateメソッドにてアニメーションの完了が通知されます。  
+
+    func animationImageView(didFinishedAnimation animationImageView: AnimationImageView) {  
+    }
 ## ライセンス
 AnimationImageView is released under the MIT license. See [LICENSE](https://github.com/bravesoft-lab/AnimationImageView/blob/master/LICENSE) for details.
